@@ -1,3 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Security+ Acronym Matching Game</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #0e1224;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  p {
+    text-align: center;
+    color: #b8bfd8;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  .column {
+    width: 480px;
+    max-width: 100%;
+  }
+  .item {
+    background: #1c2340;
+    padding: 10px;
+    margin: 6px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #2f3a66;
+    font-size: 0.9rem;
+  }
+  .item:hover {
+    background: #2a335c;
+  }
+  .selected {
+    background: #3a4a9a !important;
+  }
+  .matched {
+    background: #2d8a4e !important;
+    border-color: #44c06a;
+    cursor: default;
+  }
+
+  /* DOMAIN COLORS */
+  .IAM { color: #4da6ff; font-weight: bold; }
+  .NETWORK { color: #b266ff; font-weight: bold; }
+  .CLOUD { color: #33e6cc; font-weight: bold; }
+  .CRYPTO { color: #ffd24d; font-weight: bold; }
+  .THREATS { color: #ff6666; font-weight: bold; }
+  .GRC { color: #66ff99; font-weight: bold; }
+  .OPS { color: #ffb84d; font-weight: bold; }
+  .WIRELESS { color: #66ccff; font-weight: bold; }
+
+  #score {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+  }
+  button {
+    display: block;
+    margin: 18px auto;
+    padding: 10px 20px;
+    background: #2b3a7a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #3a4a9a;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>Security+ Acronym Matching Game</h1>
+<p>Match each acronym with its full descriptive definition</p>
+
+<div class="container">
+  <div class="column" id="terms"></div>
+  <div class="column" id="definitions"></div>
+</div>
+
+<div id="score">Matches: 0</div>
+<button onclick="startGame()">New Game</button>
+
 <script>
 /*  
    ULTRA‑MAX ACRONYM LIST  
@@ -119,26 +217,4 @@ function selectDef(el) {
 }
 
 function checkMatch() {
-  if (!selectedTerm || !selectedDef) return;
-
-  const term = selectedTerm.dataset.term;
-  const def = selectedDef.dataset.def;
-
-  const correct = pairs.find(p => p.term === term && p.def === def);
-
-  if (correct) {
-    selectedTerm.classList.add("matched");
-    selectedDef.classList.add("matched");
-    matches++;
-    document.getElementById("score").textContent =
-      `Matches: ${matches}/${pairs.length}`;
-  }
-
-  selectedTerm.classList.remove("selected");
-  selectedDef.classList.remove("selected");
-  selectedTerm = null;
-  selectedDef = null;
-}
-
-startGame();
-</script>
+  if (!selectedTerm || !selectedDef) return
