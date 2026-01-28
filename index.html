@@ -1,50 +1,64 @@
 const pairs = [
 
   /* ============================
-     CORE CONCEPTS / RISK (GRC)
+     GRC — RED
      ============================ */
-  { term: "CIA", domain: "GRC", def: "Confidentiality, Integrity, Availability — the foundational security triad ensuring data secrecy, accuracy, and accessibility." },
-  { term: "AAA", domain: "GRC", def: "Authentication, Authorization, Accounting — framework for verifying identity, granting permissions, and tracking activity." },
-  { term: "ALE", domain: "GRC", def: "Annual Loss Expectancy — the expected monetary loss for an asset due to a risk over a one-year period." },
-  { term: "ARO", domain: "GRC", def: "Annualized Rate of Occurrence — the estimated frequency a threat is expected to occur within a year." },
-  { term: "SLE", domain: "GRC", def: "Single Loss Expectancy — the financial loss expected from a single security incident." },
-  { term: "MTTR", domain: "GRC", def: "Mean Time To Repair — average time required to fix a failed component and restore service." },
-  { term: "MTBF", domain: "GRC", def: "Mean Time Between Failures — predicted time between inherent failures of a system." },
-  { term: "RPO", domain: "GRC", def: "Recovery Point Objective — maximum acceptable amount of data loss measured in time." },
+  { term: "CIA", domain: "GRC", def: "Confidentiality, Integrity, Availability — the core security triad." },
+  { term: "AAA", domain: "GRC", def: "Authentication, Authorization, Accounting — identity and access framework." },
+  { term: "ALE", domain: "GRC", def: "Annual Loss Expectancy — expected yearly financial loss from a risk." },
+  { term: "ARO", domain: "GRC", def: "Annualized Rate of Occurrence — how often a threat is expected to occur yearly." },
+  { term: "SLE", domain: "GRC", def: "Single Loss Expectancy — financial loss from a single incident." },
+  { term: "MTTR", domain: "GRC", def: "Mean Time To Repair — average time to fix and restore a system." },
+  { term: "MTBF", domain: "GRC", def: "Mean Time Between Failures — predicted time between system failures." },
+  { term: "RPO", domain: "GRC", def: "Recovery Point Objective — maximum acceptable data loss measured in time." },
   { term: "RTO", domain: "GRC", def: "Recovery Time Objective — maximum acceptable downtime after a disruption." },
 
   /* ============================
-     IAM (IDENTITY & ACCESS)
+     IAM — BLUE
      ============================ */
-  { term: "MFA", domain: "IAM", def: "Multi-Factor Authentication — requires two or more independent authentication methods to verify identity." },
-  { term: "SSO", domain: "IAM", def: "Single Sign-On — allows users to authenticate once and access multiple systems without re-authenticating." },
-  { term: "RBAC", domain: "IAM", def: "Role-Based Access Control — assigns permissions based on job roles within an organization." },
-  { term: "ABAC", domain: "IAM", def: "Attribute-Based Access Control — uses user, resource, and environmental attributes to determine access." },
-  { term: "SAML", domain: "IAM", def: "Security Assertion Markup Language — XML-based standard for exchanging authentication and authorization data." },
-  { term: "OAuth", domain: "IAM", def: "Open Authorization — framework allowing third-party applications delegated access without sharing passwords." },
-  { term: "OIDC", domain: "IAM", def: "OpenID Connect — identity layer built on OAuth 2.0 for authentication." },
-  { term: "RADIUS", domain: "IAM", def: "Remote Authentication Dial-In User Service — centralized authentication protocol for network access." },
+  { term: "MFA", domain: "IAM", def: "Multi-Factor Authentication — requires multiple verification methods." },
+  { term: "SSO", domain: "IAM", def: "Single Sign-On — one login grants access to multiple systems." },
+  { term: "RBAC", domain: "IAM", def: "Role-Based Access Control — permissions assigned by job role." },
+  { term: "ABAC", domain: "IAM", def: "Attribute-Based Access Control — access based on attributes." },
+  { term: "SAML", domain: "IAM", def: "Security Assertion Markup Language — authentication data exchange standard." },
+  { term: "OAuth", domain: "IAM", def: "Open Authorization — delegated access without sharing passwords." },
+  { term: "OIDC", domain: "IAM", def: "OpenID Connect — authentication layer built on OAuth 2.0." },
+  { term: "RADIUS", domain: "IAM", def: "Remote Authentication Dial-In User Service — centralized authentication protocol." },
 
   /* ============================
-     NETWORK SECURITY
+     NETWORK — YELLOW
      ============================ */
-  { term: "VPN", domain: "NETWORK", def: "Virtual Private Network — creates an encrypted tunnel for secure communication over untrusted networks." },
-  { term: "WAF", domain: "NETWORK", def: "Web Application Firewall — filters and monitors HTTP traffic to protect web applications from attacks." },
-  { term: "NAC", domain: "NETWORK", def: "Network Access Control — enforces security policies on devices before granting network access." },
-  { term: "DNSSEC", domain: "NETWORK", def: "DNS Security Extensions — protects DNS data integrity using digital signatures." },
-  { term: "SD-WAN", domain: "NETWORK", def: "Software-Defined Wide Area Network — uses software to manage WAN connections for efficiency and security." },
+  { term: "VPN", domain: "NETWORK", def: "Virtual Private Network — encrypted tunnel for secure communication." },
+  { term: "WAF", domain: "NETWORK", def: "Web Application Firewall — protects web apps from attacks." },
+  { term: "NAC", domain: "NETWORK", def: "Network Access Control — enforces device security before access." },
+  { term: "DNSSEC", domain: "NETWORK", def: "DNS Security Extensions — protects DNS integrity with signatures." },
+  { term: "SD-WAN", domain: "NETWORK", def: "Software-Defined WAN — software-managed wide-area networking." },
 
   /* ============================
-     THREATS / MALWARE
+     OPS — GREEN
      ============================ */
-  { term: "APT", domain: "THREATS", def: "Advanced Persistent Threat — long-term targeted attack by skilled adversaries." },
-  { term: "RAT", domain: "THREATS", def: "Remote Access Trojan — malware that provides attackers with remote control of a system." },
-  { term: "XSS", domain: "THREATS", def: "Cross-Site Scripting — injects malicious scripts into trusted websites." },
-  { term: "SQLi", domain: "THREATS", def: "SQL Injection — attack that manipulates SQL queries to access or modify data." },
+  { term: "SIEM", domain: "OPS", def: "Security Information and Event Management — log analysis and alerting." },
+  { term: "SOAR", domain: "OPS", def: "Security Orchestration, Automation, and Response — automated incident handling." },
+  { term: "EDR", domain: "OPS", def: "Endpoint Detection and Response — monitors and responds to endpoint threats." },
+  { term: "IR", domain: "OPS", def: "Incident Response — structured approach to handling security incidents." },
+  { term: "UEBA", domain: "OPS", def: "User and Entity Behavior Analytics — detects abnormal behavior." },
 
   /* ============================
-     CLOUD / VIRTUALIZATION
+     THREATS — ORANGE
      ============================ */
-  { term: "IaaS", domain: "CLOUD", def: "Infrastructure as a Service — cloud model providing virtualized computing resources over the internet." }
+  { term: "APT", domain: "THREATS", def: "Advanced Persistent Threat — long-term targeted attack." },
+  { term: "RAT", domain: "THREATS", def: "Remote Access Trojan — malware enabling remote control." },
+  { term: "XSS", domain: "THREATS", def: "Cross-Site Scripting — malicious script injection attack." },
+  { term: "SQLi", domain: "THREATS", def: "SQL Injection — manipulates SQL queries to access data." },
+  { term: "DDoS", domain: "THREATS", def: "Distributed Denial of Service — overwhelms systems with traffic." },
+
+  /* ============================
+     CLOUD — GREEN/TEAL
+     ============================ */
+  { term: "IaaS", domain: "CLOUD", def: "Infrastructure as a Service — virtualized computing resources." },
+  { term: "PaaS", domain: "CLOUD", def: "Platform as a Service — cloud platform for app development." },
+  { term: "SaaS", domain: "CLOUD", def: "Software as a Service — cloud-delivered applications." },
+  { term: "CASB", domain: "CLOUD", def: "Cloud Access Security Broker — enforces cloud security policies." },
+  { term: "FaaS", domain: "CLOUD", def: "Function as a Service — serverless execution of code." }
 
 ];
