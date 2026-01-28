@@ -1,140 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Security+ Acronym Game</title>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #0e1224;
-    color: #ffffff; /* bright white text */
-    margin: 0;
-    padding: 20px;
-  }
-  h1, p { text-align: center; }
-  .container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-  }
-  .column { width: 45%; }
-  .item {
-    background: #1c2340;
-    padding: 10px;
-    margin: 6px 0;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 1px solid #2f3a66;
-  }
-  .selected { background: #3a4a9a !important; }
-  .matched { background: #2d8a4e !important; }
-</style>
-</head>
-
-<body>
-
-<h1>Security+ Acronym Matching Game</h1>
-<p>Match each acronym with its definition</p>
-
-<div class="container">
-  <div class="column" id="terms"></div>
-  <div class="column" id="definitions"></div>
-</div>
-
-<div id="score">Matches: 0</div>
-<button onclick="startGame()">New Game</button>
-
-<script>
 const pairs = [
-  { term: "CIA", domain: "GRC", def: "Confidentiality, Integrity, Availability" },
-  { term: "AAA", domain: "GRC", def: "Authentication, Authorization, Accounting" },
-  { term: "IaaS", domain: "CLOUD", def: "Infrastructure as a Service" }
+
+  /* ============================
+     CORE CONCEPTS / RISK (GRC)
+     ============================ */
+  { term: "CIA", domain: "GRC", def: "Confidentiality, Integrity, Availability — the foundational security triad ensuring data secrecy, accuracy, and accessibility." },
+  { term: "AAA", domain: "GRC", def: "Authentication, Authorization, Accounting — framework for verifying identity, granting permissions, and tracking activity." },
+  { term: "ALE", domain: "GRC", def: "Annual Loss Expectancy — the expected monetary loss for an asset due to a risk over a one-year period." },
+  { term: "ARO", domain: "GRC", def: "Annualized Rate of Occurrence — the estimated frequency a threat is expected to occur within a year." },
+  { term: "SLE", domain: "GRC", def: "Single Loss Expectancy — the financial loss expected from a single security incident." },
+  { term: "MTTR", domain: "GRC", def: "Mean Time To Repair — average time required to fix a failed component and restore service." },
+  { term: "MTBF", domain: "GRC", def: "Mean Time Between Failures — predicted time between inherent failures of a system." },
+  { term: "RPO", domain: "GRC", def: "Recovery Point Objective — maximum acceptable amount of data loss measured in time." },
+  { term: "RTO", domain: "GRC", def: "Recovery Time Objective — maximum acceptable downtime after a disruption." },
+
+  /* ============================
+     IAM (IDENTITY & ACCESS)
+     ============================ */
+  { term: "MFA", domain: "IAM", def: "Multi-Factor Authentication — requires two or more independent authentication methods to verify identity." },
+  { term: "SSO", domain: "IAM", def: "Single Sign-On — allows users to authenticate once and access multiple systems without re-authenticating." },
+  { term: "RBAC", domain: "IAM", def: "Role-Based Access Control — assigns permissions based on job roles within an organization." },
+  { term: "ABAC", domain: "IAM", def: "Attribute-Based Access Control — uses user, resource, and environmental attributes to determine access." },
+  { term: "SAML", domain: "IAM", def: "Security Assertion Markup Language — XML-based standard for exchanging authentication and authorization data." },
+  { term: "OAuth", domain: "IAM", def: "Open Authorization — framework allowing third-party applications delegated access without sharing passwords." },
+  { term: "OIDC", domain: "IAM", def: "OpenID Connect — identity layer built on OAuth 2.0 for authentication." },
+  { term: "RADIUS", domain: "IAM", def: "Remote Authentication Dial-In User Service — centralized authentication protocol for network access." },
+
+  /* ============================
+     NETWORK SECURITY
+     ============================ */
+  { term: "VPN", domain: "NETWORK", def: "Virtual Private Network — creates an encrypted tunnel for secure communication over untrusted networks." },
+  { term: "WAF", domain: "NETWORK", def: "Web Application Firewall — filters and monitors HTTP traffic to protect web applications from attacks." },
+  { term: "NAC", domain: "NETWORK", def: "Network Access Control — enforces security policies on devices before granting network access." },
+  { term: "DNSSEC", domain: "NETWORK", def: "DNS Security Extensions — protects DNS data integrity using digital signatures." },
+  { term: "SD-WAN", domain: "NETWORK", def: "Software-Defined Wide Area Network — uses software to manage WAN connections for efficiency and security." },
+
+  /* ============================
+     THREATS / MALWARE
+     ============================ */
+  { term: "APT", domain: "THREATS", def: "Advanced Persistent Threat — long-term targeted attack by skilled adversaries." },
+  { term: "RAT", domain: "THREATS", def: "Remote Access Trojan — malware that provides attackers with remote control of a system." },
+  { term: "XSS", domain: "THREATS", def: "Cross-Site Scripting — injects malicious scripts into trusted websites." },
+  { term: "SQLi", domain: "THREATS", def: "SQL Injection — attack that manipulates SQL queries to access or modify data." },
+
+  /* ============================
+     CLOUD / VIRTUALIZATION
+     ============================ */
+  { term: "IaaS", domain: "CLOUD", def: "Infrastructure as a Service — cloud model providing virtualized computing resources over the internet." }
+
 ];
-
-let selectedTerm = null;
-let selectedDef = null;
-let matches = 0;
-
-function shuffle(arr) {
-  return arr.map(v => ({v, sort: Math.random()}))
-            .sort((a,b) => a.sort - b.sort)
-            .map(({v}) => v);
-}
-
-function startGame() {
-  matches = 0;
-  document.getElementById("score").textContent = "Matches: 0";
-
-  const termsCol = document.getElementById("terms");
-  const defsCol = document.getElementById("definitions");
-
-  termsCol.innerHTML = "";
-  defsCol.innerHTML = "";
-
-  const shuffledTerms = shuffle([...pairs]);
-  const shuffledDefs = shuffle([...pairs]);
-
-  shuffledTerms.forEach(pair => {
-    const div = document.createElement("div");
-    div.className = "item";
-    div.textContent = pair.term;
-    div.dataset.term = pair.term;
-    div.onclick = () => selectTerm(div);
-    termsCol.appendChild(div);
-  });
-
-  shuffledDefs.forEach(pair => {
-    const div = document.createElement("div");
-    div.className = "item";
-    div.textContent = pair.def;
-    div.dataset.def = pair.def;
-    div.onclick = () => selectDef(div);
-    defsCol.appendChild(div);
-  });
-}
-
-function selectTerm(el) {
-  if (el.classList.contains("matched")) return;
-  if (selectedTerm) selectedTerm.classList.remove("selected");
-  selectedTerm = el;
-  el.classList.add("selected");
-  checkMatch();
-}
-
-function selectDef(el) {
-  if (el.classList.contains("matched")) return;
-  if (selectedDef) selectedDef.classList.remove("selected");
-  selectedDef = el;
-  el.classList.add("selected");
-  checkMatch();
-}
-
-function checkMatch() {
-  if (!selectedTerm || !selectedDef) return;
-
-  const term = selectedTerm.dataset.term;
-  const def = selectedDef.dataset.def;
-
-  const correct = pairs.find(p => p.term === term && p.def === def);
-
-  if (correct) {
-    selectedTerm.classList.add("matched");
-    selectedDef.classList.add("matched");
-    matches++;
-    document.getElementById("score").textContent = `Matches: ${matches}/${pairs.length}`;
-  }
-
-  selectedTerm.classList.remove("selected");
-  selectedDef.classList.remove("selected");
-  selectedTerm = null;
-  selectedDef = null;
-}
-
-startGame();
-</script>
-
-</body>
-</html>
